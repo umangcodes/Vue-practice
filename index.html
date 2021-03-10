@@ -11,6 +11,10 @@
   <body>
     <div id="app">
       <div class="nav-bar"></div>
+
+      <div class="cart" v-if='ship_sts == 3'>ship is {{ ship_status[0] }}</div>
+      <div class="cart" v-else-if='ship_sts == 2'>ship is {{ ship_status[1] }}</div>
+      <div class="cart" v-else='ship_sts == 1'>ship is {{ ship_status[2] }}</div>
       
       <div class="product-display">
         <div class="product-container">
@@ -18,12 +22,18 @@
             <img v-bind:src="image">
           </div>
           <div class="product-info">
-            <h1>{{ ship }}</h1>
-            <p>{{ description }}</p>
-            <p v-if="captain_status == crew[0].id" :key = 'crew[0].id'>Ship captain: {{crew[0].name}}</p>
-            <p v-else-if="captain_status  == crew[1].id" :key = 'crew[1].id'>Ship captain: {{crew[1].name}}</p>
-            <p v-else="captain_status == crew[2].id" :key = 'crew[2].id'>Ship captain: {{crew[2].name}}</p>
-            <p v-show="docked">{{"Docked"}}</p>
+            <h1>{{ ships[0] }}</h1>
+            <p v-if="captain_status == crew[2].id">Ship captain: {{crew[2].name}}</p>
+            <p v-else-if="captain_status == crew[1].id">Ship captain: {{crew[1].name}}</p>
+            <p v-else="captain_status == crew[0].id">Ship captain: {{crew[0].name}}</p>
+            
+            <ul>
+              <li v-for="ship in ships" v-on:mouseover='changeShip(ship)'>{{ ship }}</li>
+            </ul>
+            <!-- <div v-for="ship in ships" >{{ ship }}</div> -->
+
+            <button class="button" v-on:click="warpOut">Warp Out</button>
+            <button class="button" v-show="ship_sts"v-on:click="fallBack">fall back</button>
           </div>
         </div>
       </div>
