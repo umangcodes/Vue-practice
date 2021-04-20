@@ -19,28 +19,19 @@ export default {
   },
   data() {
     return {
-      events: [
-        {
-          id: 123456,
-          category: 'welfare',
-          date: '20 April 2021',
-          time: '11:00 pm',
-        },
-        {
-          id: 123457,
-          category: 'welfare',
-          date: '20 April 2021',
-          time: '11:00 pm',
-        },
-        {
-          id: 123458,
-          category: 'welfare',
-          date: '20 April 2021',
-          time: '11:00 pm',
-        },
-      ],
-    };
+      events: null,
+    }
   },
+  created() {
+    EventService.getEvents()
+      .then((response) => {
+        this.events = response.data
+        console.log(response)
+    })
+      .catch((error) => {
+        console.log(error)
+    })
+  }
 };
 </script>
 
