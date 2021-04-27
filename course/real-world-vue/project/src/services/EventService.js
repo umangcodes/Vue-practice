@@ -6,11 +6,17 @@ const apiClient = axios.create({
   headers: {
     Accept: 'application/json',
     'content-Type': 'application/json',
-}
+  },
 })
 
 export default{
   getEvents() {
     return apiClient.get('/events')
+  },
+  getEvent(eventId) {
+    return apiClient.get('/events/' + eventId)
+  },
+  getContact(contact) {
+    return apiClient.get('/events/' + contact)
   }
 }
